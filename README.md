@@ -1,4 +1,4 @@
-# PKI Sauce
+# PkiSauce
 
 Ephemeral One Time Use/Build Time TLS PKI saucing for your intra services GRPC communications.
 
