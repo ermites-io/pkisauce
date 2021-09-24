@@ -1,0 +1,52 @@
+========== DEBUG =========
+
+Name       : {{.Name}}
+HName      : {{.HName}}
+Flavor     : {{.Flavor}}
+
+ClientUUID : {{.ClientUUID}}
+Client     : {{.Client}}
+ServerUUID : {{.ServerUUID}}
+Server     : {{.Server}}
+
+DebugLog   : {{.DebugLog}}
+
+Key        : {{.Key}}
+
+========== CERT(S) =========
+
+CA Certificate:
+{{ .PkiInfo.ca }}
+
+{{ if .Server }}
+Server Cert:
+{{ .PkiInfo.sc }}
+
+Server Key:
+{{ .PkiInfo.sk }}
+{{ end }}
+
+{{ if .Client }}
+Client Cert:
+{{ .PkiInfo.cc }}
+
+Client Key:
+{{ .PkiInfo.ck }}
+{{ end }}
+{{ if ne .Flavor 4 }}
+
+========== PKI Servers =========
+{{ range $host, $ni := .Servers }}
+host: {{ $host }} - uuid: {{ $ni.UUID }} - phname: {{ $ni.PHName }}{{ end }}
+
+========== POLICY =========
+{{ if (and (eq .Flavor 2) (.Server)) }} {{ if len .Policy }} {{ range $host, $svcs := .Policy }}{{ range $svc, $rpcs := $svcs }}{{ range $rpc, $val := $rpcs }} 
+host:{{ $host }} svc:{{ $svc }} rpc:{{ $rpc }} {{ end }} {{ end }} {{ end }}
+
+Blob: {{ .PolicyBlob }}
+
+PkiBlob: {{ .PkiBlob }}
+{{ end }}
+{{ else }} // NO POLICY (client only or PEM only)
+{{ end }}
+{{ end }}

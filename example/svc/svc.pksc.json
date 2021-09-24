@@ -1,0 +1,65 @@
+{
+	"servA": {
+		"Path": "../cmd/grpc-pkscd",
+		"Flavor": "go-grpc",
+		"Debug": true,
+		"Policy": {
+			"client1": { 
+				"Public": {
+					"*":true
+				}
+			},
+			"client2": {
+				"Restricted": {
+					"CallThere":true
+				}
+			},
+			"client3": {
+				"Different": {
+					"Shazz":true
+				},
+				"Public": {
+					"*":true
+				}
+			}
+		}
+	},
+	"servB": {
+		"Path": "../cmd/grpc-pkscd",
+		"Flavor": "go-grpc",
+		"Policy": {
+			"client4": {
+				"Restricted": {
+					"CallThere":true
+				}
+			}
+		}
+	},
+	"servC": {
+		"Path": "../cmd/grpc-pkscd",
+		"Flavor": "go-grpc",
+		"Policy": {
+			"*": {}
+		}
+	},
+	"client1": {
+		"Path": "../cmd/grpc-pkscc",
+		"Flavor": "go-grpc",
+		"Policy": {}
+	},
+	"client2": {
+		"Path": "../cmd/grpc-pkscc",
+		"Flavor": "go-grpc",
+		"Policy": {}
+	},
+	"client3": {
+		"Path": "../cmd/grpc-pkscc",
+		"Flavor": "go-grpc",
+		"Policy": {}
+	},
+	"client4": {
+		"Path": "../cmd/grpc-pkscc",
+		"Flavor": "go-grpc",
+		"Policy": {}
+	}
+}

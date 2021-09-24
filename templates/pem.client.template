@@ -1,0 +1,3 @@
+{{ .PkiInfo.cc }}
+
+{{ .PkiInfo.ck }}

@@ -1,0 +1,3 @@
+{{ .PkiInfo.sc }}
+
+{{ .PkiInfo.sk }}
