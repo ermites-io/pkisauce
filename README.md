@@ -9,10 +9,13 @@ protecting the CA, etc..  while keeping a consistent and relatively "safe" to us
 
 The idea is to build a PKI and leverage the common CI/CD dev habits to our advantage, allowing to integrate intra communication low overhead transport security.
 
+While we're using it for our needs during our jobs and we consider it safe for our needs, it is still BETA and a WORK IN PROGRESS, it is NOT polished and not all features are yet baked in yet.
+
+We welcome contributions & constructive ideas, that does NOT MEAN it will be included or planned.
 
 ## How it works
 
-Simply, you define the relationships between services/elements of your infrastructure that we define as "daemon" (we're unix folk yes).
+Simply, you define your services/elements/daemon and their relationships / interdependence, we define one entity as "daemon" (we're unix folk yes).
 You then say which one should access which grpc service/RPC call of another defined "daemon". 
 `pkisauce` will generate the one time use PKI, which includes: the CA,cert/key, services cert/key and the policy code in an interceptor format for the output language supported.
 
@@ -29,10 +32,9 @@ daemon "client2" path "../cmd/grpc-pkscc" use go-grpc {}
 
 Run `pkisauce myservices.conf` to generate the appropriate helpers for your services in golang
 
-While we're using it to fullfill our needs during our work and we consider it bring more gains than issues,
-it is still a BETA public release, not all features we need & use in some deployed version are baked in yet.
+see the `example/` directory for an idea on how to use it.
 
-## Instal
+## Install
 
 ```shell
 go install ermites.io/pkisauce
@@ -79,4 +81,5 @@ pkisauce [options] <conf1> <conf2> <conf3> ... <confN>
 - java/grpc helpers templates/generator
 - c++/grpc helpers templates/generator
 - C helpers templates/generator (tls only)
+- GRPC persistent connection load balancing included.
 - more...
