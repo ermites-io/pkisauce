@@ -3,6 +3,10 @@
 
 /*
  *
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2020 Ermites.IO
+ * All rights reserved.
  *
  */
 
@@ -25,7 +29,7 @@ func Usage(cmd string) {
 	fmt.Printf("where [options]:\n")
 	fmt.Printf("  -userdata <data>\n")
 	fmt.Printf("  -pkidebug <name>\n")
-	fmt.Printf("  -convert <outputfile>\n")
+	fmt.Printf("  -version\n")
 }
 
 // args:
