@@ -42,7 +42,9 @@ service Different {
 
 ## PkiSauce definitions
 
-These are our PkiSauce definitions, that we put in the directories.
+
+### one big file
+These are our PkiSauce definitions, that we put in our repos (basically living with the src and extended as needed)
 ```
 // comments this is our Service A
 daemon "servA" path "../cmd/grpc-pkscd" use go-grpc {
@@ -71,6 +73,8 @@ daemon "client2" path "../cmd/grpc-pkscc" use go-grpc {}
 daemon "client3" path "../cmd/grpc-pkscc" use go-grpc {}
 daemon "client4" path "../cmd/grpc-pkscc" use go-grpc {}
 ```
+
+### multiple files
 
 
 
