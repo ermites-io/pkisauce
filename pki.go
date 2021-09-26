@@ -102,10 +102,10 @@ func (p *PKI) IncludeConfig(cfg config.Config) (err error) {
 		}
 
 		// TODO: handle faulty flavor.
-		flavor, _ := config.FlavorKeyword[opt.Flavor]
+		//flavor, _ := config.FlavorKeyword[opt.Flavor]
 
 		//fmt.Printf("NAME: %s POLICY: %v\n", name, opt.Policy)
-		node, nerr := NewNode(name, opt.Path, p.userdata, flavor, opt.Policy.Hosts(), opt.Debug)
+		node, nerr := NewNode(name, opt.Path, p.userdata, opt.Flavor, opt.Policy.Hosts(), opt.Debug)
 		if nerr != nil {
 			err = nerr
 			return

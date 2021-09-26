@@ -33,7 +33,8 @@ KWDAEMON : 'daemon';
 KWPATH   : 'path';
 KWUSE    : 'use';
 KWGOGRPC : 'go-grpc';
-KWGOTLS : 'go-tls';
+KWGOTLS  : 'go-tls';
+KWPEM    : 'pem';
 
 HNAME : QUOTE IDENTIFIER? QUOTE;
 
@@ -46,7 +47,8 @@ fragment CHAR_VALUE: CHAR_ESCAPE | ~[\u0000\n\\];
 fragment CHAR_ESCAPE: '\\' ( 'a' | 'b' | 'f' | 'n' | 'r' | 't' | 'v' | '\\' | '\'' | '"' );
 
 gen_type  : KWGOGRPC
-          | KWGOTLS;
+          | KWGOTLS
+	  | KWPEM ;
 
 name_elt_list : HNAME? (COMMA HNAME)* ;
 

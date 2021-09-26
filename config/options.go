@@ -13,7 +13,7 @@ import (
 
 //type Daemons map[string]Options
 type Options struct {
-	Flavor string // flags defining the type of sauce: gRPC-go, regular tls, pem, private
+	Flavor int    // flags defining the type of sauce: gRPC-go, regular tls, pem, private
 	Path   string // the directory where to write our sauce
 	Policy *policy.Policy
 	Debug  bool
@@ -31,8 +31,9 @@ func (opt Options) IsValid(name string) (err error) {
 	//fmt.Printf("OPT: %v FLAVORKEYWORD: %v\n", opt.Flavor, FlavorKeyword)
 
 	// 2. is flavor correct?
-	_, ok := FlavorKeyword[opt.Flavor]
-	if !ok {
+	switch opt.Flavor {
+	case FlavorGoTLS, FlavorGoGRPC, FlavorPEM:
+	default:
 		err = errors.New("invalid flavor")
 		return
 	}
@@ -55,7 +56,7 @@ func (opt Options) Clients() (list []string) {
 	return
 }
 
-func NewOptions(path, flavor string, p *policy.Policy, debug bool) Options {
+func NewOptions(path string, flavor int, p *policy.Policy, debug bool) Options {
 	return Options{
 		Flavor: flavor,
 		Path:   path,

@@ -44,7 +44,7 @@ func parseTermNodeText(hn antlr.TerminalNode) string {
 }
 
 // IGen_typeContext
-func (c *Parser) parseGenType(igt IGen_typeContext) (dtype string, err error) {
+func (c *Parser) parseGenType(igt IGen_typeContext) (dtype int, err error) {
 	gt, ok := igt.(*Gen_typeContext)
 	if !ok {
 		err = fmt.Errorf("error type")
@@ -53,9 +53,11 @@ func (c *Parser) parseGenType(igt IGen_typeContext) (dtype string, err error) {
 
 	switch {
 	case gt.KWGOGRPC() != nil:
-		dtype = "go-grpc"
+		dtype = FlavorGoGRPC
 	case gt.KWGOTLS() != nil:
-		dtype = "go-tls"
+		dtype = FlavorGoTLS
+	case gt.KWPEM() != nil:
+		dtype = FlavorPEM
 	default:
 		err = fmt.Errorf("unknown type")
 	}
