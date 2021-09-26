@@ -44,7 +44,7 @@ func main() {
 	argv := flag.Args()
 
 	if *verFlag {
-		fmt.Printf("PKI sauce version %s\nsaucing TLS on your services\n", PkiSauceVersion)
+		fmt.Printf("PKI sauce version %s (c) 2020 ERMITES.io\nwe're saucing TLS1.3+ on your GRPC services\n", PkiSauceVersion)
 		os.Exit(0)
 	}
 

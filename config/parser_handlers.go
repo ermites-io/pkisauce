@@ -38,4 +38,6 @@ func (c *Parser) EnterDaemon_stmt(d *Daemon_stmtContext) {
 	if err != nil {
 		panic(err)
 	}
+
+	c.entries++
 }

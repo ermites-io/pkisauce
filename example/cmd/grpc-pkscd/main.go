@@ -17,9 +17,6 @@ type myServiceContext struct {
 	different *DifferentService
 }
 
-func registerByName(name string) {
-}
-
 func main() {
 	var opts []grpc.ServerOption
 

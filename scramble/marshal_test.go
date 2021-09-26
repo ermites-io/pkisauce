@@ -100,7 +100,7 @@ func TestMarshal(t *testing.T) {
 
 	outhash := out.hash()
 
-	if bytes.Compare(tvalhash, outhash) != 0 {
+	if !bytes.Equal(tvalhash, outhash) {
 		t.Fatalf("orig: %x VS unmarshalled: %x\n", tvalhash, outhash)
 	}
 }

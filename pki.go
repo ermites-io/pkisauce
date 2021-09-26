@@ -84,7 +84,6 @@ func (p *PKI) Add(n *Node) {
 	if n.Server {
 		p.S[n.Name] = NewNodeInfo(nil, n.Name, n.ServerUUID)
 	}
-	return
 }
 
 func (p *PKI) IncludeConfig(cfg config.Config) (err error) {
@@ -120,7 +119,10 @@ func (p *PKI) IncludeConfig(cfg config.Config) (err error) {
 		}
 
 		// make it ready for templating
-		node.Export()
+		err = node.Export()
+		if err != nil {
+			return
+		}
 	} // we're done with cfg.
 	return
 }

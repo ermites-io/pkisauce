@@ -20,11 +20,6 @@ func New(ph *scramble.Hasher, wc string) *Policy {
 	return p
 }
 
-func Unmarshal(key []byte, blob64 string) (h Hosts, err error) {
-	// TODO: this is in the template actually.
-	return
-}
-
 func (p *Policy) Hosts() Hosts {
 	return p.h
 }

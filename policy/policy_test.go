@@ -375,7 +375,7 @@ func TestPolicyEntry(t *testing.T) {
 		policyHash := p.h.hash()
 		expectedPolicyHash := te.outmap.h.hash()
 
-		if bytes.Compare(policyHash, expectedPolicyHash) != 0 {
+		if !bytes.Equal(policyHash, expectedPolicyHash) {
 			t.Fatalf("\n-- inconsistent --\npolicyHash: %x\npolicy: %v\nVS\nexpectedHash: %x\nexpected:\n%v\n",
 				policyHash,
 				p,

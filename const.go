@@ -18,13 +18,15 @@ const (
 )
 
 const (
-	TemplateNameDebug       = "templates/debug.template"
-	TemplateHelpersCommon   = "templates/helpers_common.go.template"
-	TemplateHelpers         = "templates/helpers.go.template"
-	TemplateScrambleHash    = "templates/helpers_scramble_hash.go.template"
-	TemplateScrambleMarshal = "templates/helpers_scramble_marshal.go.template"
-	TemplateScrambleError   = "templates/helpers_scramble_error.go.template"
-	TemplateCAPEM           = "templates/pem.ca.template"
-	TemplateClientPEM       = "templates/pem.client.template"
-	TemplateServerPEM       = "templates/pem.server.template"
+	TemplateNameDebug     = "templates/debug.template"
+	TemplateHelpersCommon = "templates/helpers_common.go.template"
+	TemplateHelpers       = "templates/helpers.go.template"
+	TemplateCAPEM         = "templates/pem.ca.template"
+	TemplateClientPEM     = "templates/pem.client.template"
+	TemplateServerPEM     = "templates/pem.server.template"
+	/*
+		TemplateScrambleHash    = "templates/helpers_scramble_hash.go.template"
+		TemplateScrambleMarshal = "templates/helpers_scramble_marshal.go.template"
+		TemplateScrambleError   = "templates/helpers_scramble_error.go.template"
+	*/
 )

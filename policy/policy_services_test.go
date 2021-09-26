@@ -129,7 +129,8 @@ func TestServiceUnion(t *testing.T) {
 		usvch := usvc.hash()
 		teh := te.e.hash()
 
-		if bytes.Compare(usvch, teh) != 0 {
+		//if bytes.Compare(usvch, teh) != 0 {
+		if !bytes.Equal(usvch, teh) {
 			t.Fatalf("\n-- inconsistent[%d] --\nusvcHash: %x\npolicy: %v\nVS\nexpectedHash: %x\nexpected:\n%v\n",
 				i,
 				usvch,

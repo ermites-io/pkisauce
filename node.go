@@ -8,7 +8,6 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 	"text/template"
@@ -78,7 +77,7 @@ type Node struct {
 	PemCA string // PEM CA
 	// New Policy
 	// 64 bytes, [0:32] bytes for hmac [32:64] for private key encryption
-	keyReader io.Reader // this is the constructed HKDF
+	//keyReader io.Reader // this is the constructed HKDF
 	//key        []byte    // MasterKey we will derivate the policy and the cert key from this.
 	k1, k2, k3 []byte // all the keys we need.
 	Key        string // the string version for template
@@ -120,14 +119,6 @@ func (n *Node) Export() (err error) {
 	n.PkiInfo["sc"] = srvcert
 	n.PkiInfo["sk"] = srvkey
 
-	// read the key from the key reader.
-	/*
-		k := make([]byte, 32)
-		_, err = n.keyReader.Read(k)
-		if err != nil {
-			return
-		}
-	*/
 	ihname := sha256.Sum256([]byte(n.Name))
 	ihk64 := sha256.Sum256([]byte(n.Key))
 
@@ -147,7 +138,7 @@ func (n *Node) PkiServerName() string {
 }
 
 func (n *Node) String() (str string) {
-	str += fmt.Sprintf("\n---\n")
+	str += "\n---\n"
 	str += fmt.Sprintf("name: %s\n", n.Name)
 	str += fmt.Sprintf("flavor: %v\n", n.Flavor)
 	str += fmt.Sprintf("uuid server: %s\n", n.ServerUUID)
