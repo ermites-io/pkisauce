@@ -82,9 +82,11 @@ all the files provided are considered part of the SAME PKI.
 ## Caution: this cannot be applied everywhere.
 
 The various projects we work(ed) on were always coded, built, shipped & delivered as ONE, multiple layers and multiple services (30+) written, built & deployed as ONE release.
+
 We are BSD people and adopting the BSD stance, in this model & using this tool removed many side effects and potential inconsistencies that could linger during various deployment in an iterative development process.
-Also as mentioned earlier we are leveraging the CI/CD iteration habits to constantly update the trust and security of all components in the system, each release cancels out the previous trust and so on.
-It enforces consistency across all the communication between all clients/services.
+
+Also as mentioned earlier we are leveraging the CI/CD iteration habits to constantly update the trust and security of all components in the system, each release cancels out the previous trust and so on; it enforces consistency across all the communication between all clients/services.
+
 The conclusion is:
 *It is NOT adapted for every use case, it is a design choice for having strong transport security with minimal cost/design/deployment overhead.*
 
