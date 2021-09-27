@@ -1,5 +1,5 @@
-//go:build go1.16
-// +build go1.16
+//go:build go1.17
+// +build go1.17
 
 package config
 
@@ -9,7 +9,7 @@ import (
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 )
 
-func (c *Parser) VisitErrorNode(node antlr.ErrorNode) {
+func (pr *Parser) VisitErrorNode(node antlr.ErrorNode) {
 	errSymbol := node.GetSymbol()
 	parent := node.GetParent().(*antlr.BaseParserRuleContext)
 	parentToken := parent.GetStart()
@@ -17,16 +17,16 @@ func (c *Parser) VisitErrorNode(node antlr.ErrorNode) {
 	fmt.Printf("error: %s at line: %d\n", errSymbol.GetText(), errSymbol.GetLine())
 }
 
-func (c *Parser) EnterDaemon_stmt(d *Daemon_stmtContext) {
+func (pr *Parser) EnterDaemon_stmt(d *Daemon_stmtContext) {
 
 	name := parseHName(d.HNAME())
 	pathname := parsePath(d.PATH())
-	flavorname, err := c.parseGenType(d.Gen_type())
+	flavorname, err := pr.parseGenType(d.Gen_type())
 	if err != nil {
 		panic(err)
 	}
 
-	p, debug, err := c.parsePassBlock(d.Pass_block())
+	p, debug, err := pr.parsePassBlock(d.Pass_block())
 	if err != nil {
 		panic(err)
 	}
@@ -34,10 +34,10 @@ func (c *Parser) EnterDaemon_stmt(d *Daemon_stmtContext) {
 	opts := NewOptions(pathname, flavorname, p, debug)
 	//name, options, err := c.parseDaemonEntry(d)
 
-	err = c.config.Add(name, opts)
+	err = pr.config.Add(name, opts)
 	if err != nil {
 		panic(err)
 	}
 
-	c.entries++
+	pr.entries++
 }

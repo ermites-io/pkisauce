@@ -1,5 +1,5 @@
-//go:build go1.16
-// +build go1.16
+//go:build go1.17
+// +build go1.17
 
 package config
 
@@ -17,9 +17,9 @@ type Parser struct {
 	config  Config
 }
 
-func (psr *Parser) Config() Config {
+func (pr *Parser) Config() Config {
 	//fmt.Printf("DANS LA CONFIG: %v\n", psr.config)
-	return psr.config
+	return pr.config
 }
 
 //func NewParser(key []byte) *Parser {
@@ -35,6 +35,7 @@ var (
 	// aliases of the same func
 	parseHName = parseTermNodeText
 	parsePath  = parseTermNodeText
+	wc         = "*"
 )
 
 func parseTermNodeText(hn antlr.TerminalNode) string {
@@ -44,7 +45,7 @@ func parseTermNodeText(hn antlr.TerminalNode) string {
 }
 
 // IGen_typeContext
-func (c *Parser) parseGenType(igt IGen_typeContext) (dtype int, err error) {
+func (pr *Parser) parseGenType(igt IGen_typeContext) (dtype int, err error) {
 	gt, ok := igt.(*Gen_typeContext)
 	if !ok {
 		err = fmt.Errorf("error type")
@@ -106,7 +107,7 @@ func parseNameBlock(nbr IName_blockContext) (names []string, err error) {
 }
 
 //func parsePassBlock(pbr IPass_blockContext) (rules []*Rule, err error) {
-func (c *Parser) parsePassBlock(pbr IPass_blockContext) (p *policy.Policy, debug bool, err error) {
+func (pr *Parser) parsePassBlock(pbr IPass_blockContext) (p *policy.Policy, debug bool, err error) {
 	//var rules []*Rule
 
 	pb, ok := pbr.(*Pass_blockContext)

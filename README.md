@@ -36,7 +36,7 @@ see the [example](example) directory for an example on how to use it.
 ## Install
 
 ```shell
-go install ermites.io/pkisauce
+go install ermites.io/pkisauce@latest
 ```
 
 ```shell
