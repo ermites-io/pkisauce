@@ -79,7 +79,9 @@ pkisauce [options] <conf1> <conf2> <conf3> ... <confN>
 
 all the files provided are considered part of the SAME PKI.
 
-## Caution: this cannot be applied everywhere.
+## This cannot be applied everywhere.
+
+Stating the obvious, but let's state it to be sure: this cannot be applied everywhere.
 
 The various projects we work(ed) on were always coded, built, shipped & delivered as ONE, multiple layers and multiple services (30+) written, built & deployed as ONE release.
 
