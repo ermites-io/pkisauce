@@ -60,7 +60,7 @@ go build -a
 * GRPC service/call granularity.
 * Generate TLS host only policies for non GRPC services.
 * TLS certificates/keys are using Curve25519.
-* TLS certificates/keys are generated & embedded in the generated code.
+* TLS certificates/keys are generated, obfuscated & embedded in the generated code.
 * TLS certificates/keys are unpacked at runtime.
 * Golang GRPC policies are generated in unary interceptor code ready to be embedded your services.
 * Golang GRPC call granularity, daemonA can only call daemonB/ServiceX/Call1.
@@ -85,10 +85,12 @@ all the files provided are considered part of the SAME PKI.
 - TLS only policies should NOT include grpc dependencies.
 - minimize dependencies.
 - certificates properties configuration support (key type?)
-- certificate user controlled data  (add user specific data in the generated certs)
+- better user controlled data inclusion as well as config/service wide (add user specific data in the generated certs)
 - proper debug template of this Ephemeral PKI (list other member of the PKI, only one detailed, etc..)
 - java/grpc helpers templates/generator
 - c++/grpc helpers templates/generator
 - C helpers templates/generator (tls only)
 - GRPC persistent connection load balancing included.
-- more...
+- a much better config parse error handling (I am no antlr4 guru tbh...)
+- explore the possibility to use go-yacc (as it's sort of part of golang) instead, but it requires an external lexer.. (which is why i tried antlr4, no go-lex or go-flex)
+- implement much more comprehensive tests in `policy`, `config` and `scramble`
