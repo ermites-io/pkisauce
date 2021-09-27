@@ -33,6 +33,13 @@ Run `pkisauce myservices.conf` to generate the appropriate helpers for your serv
 
 see the [example](example) directory for an example on how to use it.
 
+## Requirements
+
+* golang 1.17+
+* gRPC services to use that on (but actually you could build a pem based pki only if you wish)
+* the go.mod stuff
+
+
 ## Install
 
 ```shell
