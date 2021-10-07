@@ -86,7 +86,8 @@ var (
 {{ if $server }}
 	pkscPolicy_{{ $human_name }} Hosts
 	pkscWc_{{ $human_name }} string
-	pkscPH_{{ $human_name }} *Hasher
+	//pkscPH_{{ $human_name }} *Hasher
+	pkscPHk_{{ $human_name }} []byte
 {{ end }}
 {{ if $client }}
 	pkscGrpcOptTlsClient_{{ $human_name }} = GrpcDialoptFuncMap{ {{ range $touuid, $toni := $to }}
@@ -162,13 +163,16 @@ func pkscInit_{{ $human_name }}() (err error) {
 	}
 
 	// XXX prepare PH for wc only and create the required wc.
-	k3 := make ([]byte, 32)
-	_, err = krdr.Read(k3)
+	//k3 := make ([]byte, 32)
+	pkscPHk_{{ $human_name }} = make ([]byte, 32)
+	_, err = krdr.Read(pkscPHk_{{ $human_name }})
 	if err != nil {
 		return
 	}
-	pkscPH_{{ $human_name }} = NewHasher(k3)
-	pkscWc_{{ $human_name }} = pkscPH_{{ $human_name }}.Sum64([]byte(wc))
+	//pkscPH_{{ $human_name }} = NewHasher(k3)
+	//pkscWc_{{ $human_name }} = pkscPH_{{ $human_name }}.Sum64([]byte(wc))
+	hr := NewHasher(pkscPHk_{{ $human_name }})
+	pkscWc_{{ $human_name }} = hr.Sum64([]byte(wc))
 {{ end }}
 
 	return
@@ -184,6 +188,7 @@ func pkscInit_{{ $human_name }}() (err error) {
 
 func pkscVerifyPeerCertSrv_{{ $name }}(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
 	rules := pkscPolicy_{{ $human_name }}
+	hr := NewHasher(pkscPHk_{{ $human_name }})
 
 	if len(rawCerts) == 0 || len(verifiedChains) == 0 {
 		return ErrPkscAuthz
@@ -194,7 +199,8 @@ func pkscVerifyPeerCertSrv_{{ $name }}(rawCerts [][]byte, verifiedChains [][]*x5
 		return err
 	}
 
-	phTlsPeerIdentity := pkscPH_{{ $human_name }}.Sum64([]byte(peercert.Subject.CommonName))
+	//phTlsPeerIdentity := pkscPH_{{ $human_name }}.Sum64([]byte(peercert.Subject.CommonName))
+	phTlsPeerIdentity := hr.Sum64([]byte(peercert.Subject.CommonName))
 	rc := rules.isHostAuthorized(pkscWc_{{ $human_name }}, phTlsPeerIdentity)
 	if !rc {
 		return ErrPkscAuthz
@@ -233,6 +239,8 @@ func pkscInterceptor_{{ $human_name }}(ctx context.Context, req interface{}, inf
 	// the host is defined in var, nil first, but 
 	// depacked as soon as a call to the pkcsGrpcOptTlsServer
 	rules := pkscPolicy_{{ $human_name }}
+	// hasher
+	hr := NewHasher(pkscPHk_{{ $human_name }})
 
 	grpcClient, ok := peer.FromContext(ctx)
 	if !ok {
@@ -259,9 +267,14 @@ func pkscInterceptor_{{ $human_name }}(ctx context.Context, req interface{}, inf
 		return nil, ErrPkscGrpcAuthz
 	}
 
+/*
 	phTlsPeerIdentity := pkscPH_{{ $human_name }}.Sum64([]byte(tlsPeerIdentity))
 	phSvc := pkscPH_{{ $human_name }}.Sum64([]byte(svc))
 	phCall := pkscPH_{{ $human_name }}.Sum64([]byte(call))
+ */
+	phTlsPeerIdentity := hr.Sum64([]byte(tlsPeerIdentity))
+	phSvc := hr.Sum64([]byte(svc))
+	phCall := hr.Sum64([]byte(call))
 
 	rc := rules.isCallAuthorized(pkscWc_{{ $human_name }}, phTlsPeerIdentity, phSvc, phCall)
 	if !rc {
