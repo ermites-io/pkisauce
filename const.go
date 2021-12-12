@@ -9,7 +9,7 @@ const (
 	defaultPEMHeaderCert = "CERTIFICATE"
 	defaultPEMHeaderKey  = "PRIVATE KEY"
 
-	PkiSauceVersion = "v0.1.0"
+	PkiSauceVersion = "v0.1.1"
 )
 
 const (

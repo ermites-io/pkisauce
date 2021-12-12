@@ -31,7 +31,7 @@ var (
 	defaultClientCertOrgUnit = []string{"client cert org"}
 	defaultClientCommonName  = string("client.cn.ermites.io")
 
-	b64 = base64.RawURLEncoding
+	pkscb64 = base64.RawURLEncoding
 )
 
 var (

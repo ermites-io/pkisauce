@@ -114,10 +114,16 @@ func (n *Node) Export() (err error) {
 	srvcert, srvkey := n.CertServer().PEM(nil)
 
 	n.PkiInfo["ca"] = n.PemCA
-	n.PkiInfo["cc"] = cltcert
-	n.PkiInfo["ck"] = cltkey
-	n.PkiInfo["sc"] = srvcert
-	n.PkiInfo["sk"] = srvkey
+	if n.Client {
+		n.PkiInfo["cc"] = cltcert
+		n.PkiInfo["ck"] = cltkey
+	}
+	if n.Server {
+		n.PkiInfo["sc"] = srvcert
+		n.PkiInfo["sk"] = srvkey
+	}
+
+	//fmt.Printf("NODE[%s]: %#v\n", n.Name, n.PkiInfo)
 
 	ihname := sha256.Sum256([]byte(n.Name))
 	ihk64 := sha256.Sum256([]byte(n.Key))
@@ -187,14 +193,18 @@ func (n *Node) setPolicy(h policy.Hosts) {
 
 	adhca := sha256.Sum256([]byte(n.PkiInfo["ca"]))
 	adh.Write(adhca[:])
-	adhsc := sha256.Sum256([]byte(n.PkiInfo["sc"]))
-	adh.Write(adhsc[:])
-	adhsk := sha256.Sum256([]byte(n.PkiInfo["sk"]))
-	adh.Write(adhsk[:])
-	adhcc := sha256.Sum256([]byte(n.PkiInfo["cc"]))
-	adh.Write(adhcc[:])
-	adhck := sha256.Sum256([]byte(n.PkiInfo["ck"]))
-	adh.Write(adhck[:])
+	if n.Server {
+		adhsc := sha256.Sum256([]byte(n.PkiInfo["sc"]))
+		adh.Write(adhsc[:])
+		adhsk := sha256.Sum256([]byte(n.PkiInfo["sk"]))
+		adh.Write(adhsk[:])
+	}
+	if n.Client {
+		adhcc := sha256.Sum256([]byte(n.PkiInfo["cc"]))
+		adh.Write(adhcc[:])
+		adhck := sha256.Sum256([]byte(n.PkiInfo["ck"]))
+		adh.Write(adhck[:])
+	}
 
 	ad := adh.Sum(nil)
 
@@ -384,7 +394,7 @@ func NewNodeWithUUIDs(name, path, userdata string, flavor int, pol policy.Hosts,
 	if err != nil {
 		return
 	}
-	k64 := b64.EncodeToString(k)
+	k64 := pkscb64.EncodeToString(k)
 
 	ihname := sha256.Sum256([]byte(name))
 	ihk64 := sha256.Sum256([]byte(k64))
@@ -446,7 +456,7 @@ func NewNodeWithUUIDs(name, path, userdata string, flavor int, pol policy.Hosts,
 		PkiInfo:    make(NodePkiInfo),
 		// by default all element can be clients...
 		// let's not discriminate, since the servers ARE doing the filtering when they can.
-		Client:     true,
+		Client:     false,
 		ClientUUID: cltuuid,
 		ClientCert: cltcsr,
 

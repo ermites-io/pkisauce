@@ -88,29 +88,50 @@ func main() {
 		}
 	}
 
-	if len(*debugFlag) > 0 {
-		fmt.Printf("debug mode\n")
-		err = pki.Debug(*debugFlag)
-		if err != nil {
-			panic(err)
+	/*
+		if len(*debugFlag) > 0 {
+			fmt.Printf("debug mode\n")
+			err = pki.Debug(*debugFlag)
+			if err != nil {
+				panic(err)
+			}
+			os.Exit(0)
 		}
-		os.Exit(0)
-	}
+	*/
 
 	// now let's generate a file for each
 	// templating.
 	for _, node := range pki.Nodes() {
+		if len(*debugFlag) > 0 {
+			if node.Name != *debugFlag {
+				continue
+			}
+		}
 		// create a node local list of all pki servers
 		fmt.Printf("generating '%s' (srv:%s clt:%s) in '%s'\n", node.Name, node.ServerUUID, node.ClientUUID, node.Path)
+		if pki.IsClient(node.Name) {
+			node.Client = true
+		}
+
+		err = node.Export()
+		if err != nil {
+			return
+		}
 
 		err := pki.BuildNodePolicy(node)
 		if err != nil {
 			panic(err)
 		}
 
-		err = node.generateFiles()
-		if err != nil {
-			panic(err)
+		switch {
+		case len(*debugFlag) > 0:
+			err = node.generateDebug()
+			os.Exit(0)
+		default:
+			err = node.generateFiles()
+			if err != nil {
+				panic(err)
+			}
 		}
 	}
 

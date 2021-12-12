@@ -40,13 +40,14 @@ Client Key:
 host: {{ $host }} - uuid: {{ $ni.UUID }} - phname: {{ $ni.PHName }}{{ end }}
 
 ========== POLICY =========
-{{ if (and (eq .Flavor 2) (.Server)) }} {{ if len .Policy }} {{ range $host, $svcs := .Policy }}{{ range $svc, $rpcs := $svcs }}{{ range $rpc, $val := $rpcs }} 
+{{ if (eq .Flavor 2) }} {{ if len .Policy }} {{ range $host, $svcs := .Policy }}{{ range $svc, $rpcs := $svcs }}{{ range $rpc, $val := $rpcs }} 
 host:{{ $host }} svc:{{ $svc }} rpc:{{ $rpc }} {{ end }} {{ end }} {{ end }}
 
-Blob: {{ .PolicyBlob }}
-
-PkiBlob: {{ .PkiBlob }}
+{{ if .Server }}
+PolicyBlob: {{ .PolicyBlob }}
 {{ end }}
+{{ end }}
+PkiBlob: {{ .PkiBlob }}
 {{ else }} // NO POLICY (client only or PEM only)
 {{ end }}
 {{ end }}

@@ -12,10 +12,12 @@ import (
 )
 
 type PKI struct {
-	ca       *CA
-	userdata string           // data to add in each certificate
-	M        map[string]*Node // the map of nodes.
-	S        map[string]*NodeInfo
+	ca       *CA                  // the CA
+	userdata string               // data to add in each certificate
+	hasWc    bool                 // does the PKI has a wildcard defined host, if yes all hosts are potentially clients.
+	M        map[string]*Node     // the map of nodes.
+	S        map[string]*NodeInfo // the additionnal map info.
+	C        map[string]bool
 }
 
 // this clones the current server list to be copied into a node server infos.
@@ -34,6 +36,9 @@ func (p *PKI) Debug(name string) (err error) {
 	if !ok {
 		err = fmt.Errorf("!! definition error: '%s' is NOT defined", name)
 		return
+	}
+	if p.IsClient(node.Name) {
+		node.Client = true
 	}
 
 	// build the policy map
@@ -85,6 +90,27 @@ func (p *PKI) Add(n *Node) {
 	if n.Server {
 		p.S[n.Name] = NewNodeInfo(nil, n.Name, n.ServerUUID)
 	}
+
+	// add all policy hosts as client
+	// add wc and trigger bool
+	for h := range n.Policy {
+		p.C[h] = true
+	}
+
+	// if ONE of our PKI node has a wildcard host, then all host are clients.
+	// we use that later to see if we include or NOT the client certificate in the resulting blob
+	if n.Policy.HasWc() {
+		p.hasWc = true
+	}
+}
+
+func (p *PKI) IsClient(name string) (ok bool) {
+	_, cok := p.C[name]
+	wcok := p.hasWc
+	if cok || wcok {
+		ok = true
+	}
+	return
 }
 
 func (p *PKI) IncludeConfig(cfg config.Config) (err error) {
@@ -103,6 +129,7 @@ func (p *PKI) IncludeConfig(cfg config.Config) (err error) {
 
 		// TODO: handle faulty flavor.
 		//flavor, _ := config.FlavorKeyword[opt.Flavor]
+		//fmt.Printf("HOSTS[%s]: %#v\n", name, opt.Policy.Hosts())
 
 		//fmt.Printf("NAME: %s POLICY: %v\n", name, opt.Policy)
 		node, nerr := NewNode(name, opt.Path, p.userdata, opt.Flavor, opt.Policy.Hosts(), opt.Debug)
@@ -120,10 +147,12 @@ func (p *PKI) IncludeConfig(cfg config.Config) (err error) {
 		}
 
 		// make it ready for templating
-		err = node.Export()
-		if err != nil {
-			return
-		}
+		/*
+			err = node.Export()
+			if err != nil {
+				return
+			}
+		*/
 	} // we're done with cfg.
 	return
 }
@@ -171,8 +200,16 @@ func (pki *PKI) buildNodePolicyServer(n *Node) (err error) {
 	//hosts := n.Policy
 	np := policy.New(ph, "*")
 
+	// XXX temporary
+	/*
+		fmt.Printf("POLICY[%s]: %#v\n", n.HName, n.Policy)
+		fmt.Printf("POLICY[%s] Client: %v Server: %v\n", n.Name, n.Client, n.Server)
+	*/
+
 	for host, svcs := range n.Policy {
 		// we don't need the wildcard pki node anymore..
+		// by default we consider all is wildcard
+		// so all nodes are client
 		clientuuid := "*"
 		if host != "*" {
 			client, ok := pki.Node(host)
@@ -180,6 +217,8 @@ func (pki *PKI) buildNodePolicyServer(n *Node) (err error) {
 				err = fmt.Errorf("missing node '%s'", host)
 				return
 			}
+			//fmt.Printf("CLIENT: %s\n", client.Name)
+			//client.Client = true
 			clientuuid = client.PkiClientName()
 		}
 		for svc, rpcs := range svcs {
@@ -199,8 +238,10 @@ func NewPKI(ca *CA, userdata string) (p *PKI, err error) {
 	p = &PKI{
 		ca:       ca,
 		userdata: userdata,
+		hasWc:    false,
 		M:        make(map[string]*Node),
 		S:        make(map[string]*NodeInfo),
+		C:        make(map[string]bool),
 	}
 	return
 }

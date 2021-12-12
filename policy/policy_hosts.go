@@ -8,6 +8,11 @@ func NewHosts() Hosts {
 	return p
 }
 
+func (h Hosts) HasWc() (ok bool) {
+	_, ok = h[wc]
+	return
+}
+
 // we have a case failing, see tests..
 //func (p *Policy) clear(wc string) {
 func (h Hosts) clear(wc string) {

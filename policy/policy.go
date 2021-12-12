@@ -25,6 +25,11 @@ func (p *Policy) Hosts() Hosts {
 	return p.h
 }
 
+func (p *Policy) HasWc() (ok bool) {
+	_, ok = p.h[wc]
+	return
+}
+
 func (p *Policy) Check(name, service, call string) bool {
 	lcall := call
 	lsvc := service

@@ -76,7 +76,7 @@ var (
 	ErrPkscEINVAL    = fmt.Errorf("invalid valuer")
 
 	// policy related..
-        b64 = base64.RawURLEncoding
+        //b64 = base64.RawURLEncoding
         wc  = "*"
 )
 
@@ -188,6 +188,7 @@ func (h Hosts) isHostAuthorized(wc, cn string) bool {
 }
 
 
+/*
 func unmarshal(key []byte, blob64 string) (h Hosts, err error) {
 	h = make(Hosts)
 	blob, err := b64.DecodeString(blob64)
@@ -201,6 +202,7 @@ func unmarshal(key []byte, blob64 string) (h Hosts, err error) {
 	err = dec.Decode(&h)
 	return
 }
+*/
 
 
 // this function is used when called from gRPC policies compiled map
