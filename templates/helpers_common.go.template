@@ -56,11 +56,11 @@
 package main
 
 import (
-	"bytes"
+	//"bytes"
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/base64"
-	"encoding/gob"
+	//"encoding/gob"
 	"fmt"
 	"strings"
 
@@ -76,7 +76,7 @@ var (
 	ErrPkscEINVAL    = fmt.Errorf("invalid valuer")
 
 	// policy related..
-        //b64 = base64.RawURLEncoding
+        pkscb64 = base64.RawURLEncoding
         wc  = "*"
 )
 

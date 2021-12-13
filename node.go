@@ -114,6 +114,11 @@ func (n *Node) Export() (err error) {
 	srvcert, srvkey := n.CertServer().PEM(nil)
 
 	n.PkiInfo["ca"] = n.PemCA
+	n.PkiInfo["cc"] = ""
+	n.PkiInfo["ck"] = ""
+	n.PkiInfo["sc"] = ""
+	n.PkiInfo["sk"] = ""
+
 	if n.Client {
 		n.PkiInfo["cc"] = cltcert
 		n.PkiInfo["ck"] = cltkey
@@ -193,18 +198,14 @@ func (n *Node) setPolicy(h policy.Hosts) {
 
 	adhca := sha256.Sum256([]byte(n.PkiInfo["ca"]))
 	adh.Write(adhca[:])
-	if n.Server {
-		adhsc := sha256.Sum256([]byte(n.PkiInfo["sc"]))
-		adh.Write(adhsc[:])
-		adhsk := sha256.Sum256([]byte(n.PkiInfo["sk"]))
-		adh.Write(adhsk[:])
-	}
-	if n.Client {
-		adhcc := sha256.Sum256([]byte(n.PkiInfo["cc"]))
-		adh.Write(adhcc[:])
-		adhck := sha256.Sum256([]byte(n.PkiInfo["ck"]))
-		adh.Write(adhck[:])
-	}
+	adhsc := sha256.Sum256([]byte(n.PkiInfo["sc"]))
+	adh.Write(adhsc[:])
+	adhsk := sha256.Sum256([]byte(n.PkiInfo["sk"]))
+	adh.Write(adhsk[:])
+	adhcc := sha256.Sum256([]byte(n.PkiInfo["cc"]))
+	adh.Write(adhcc[:])
+	adhck := sha256.Sum256([]byte(n.PkiInfo["ck"]))
+	adh.Write(adhck[:])
 
 	ad := adh.Sum(nil)
 

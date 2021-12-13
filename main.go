@@ -52,6 +52,12 @@ func main() {
 		os.Exit(0)
 	}
 
+	if len(argv) == 0 {
+		fmt.Printf("no pkisauce conf given\n")
+		Usage(os.Args[0])
+		os.Exit(1)
+	}
+
 	// let's test our shit...
 	ca, err := NewCA(182)
 	if err != nil {

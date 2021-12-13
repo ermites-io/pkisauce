@@ -56,6 +56,7 @@ package main
 
 import (
 	"crypto/sha256"
+	"os"
 {{ if (and (eq $flavor 2) $server) }}
 	"context"
 	"fmt"
@@ -73,7 +74,13 @@ import (
 	"golang.org/x/crypto/hkdf"
 )
 
-const ( {{ if .Server }}
+const (
+	EnvPkscToken_{{ $human_name }}    = "PKSC_TOKEN"
+	EnvPkscPkiBlob_{{ $human_name }}  = "PKSC_TRUST"
+	EnvPkscPolicy_{{ $human_name }}   = "PKSC_POLICY"
+)
+
+const ( {{ if $server }}
 	pkscPolicyBlob_{{ $human_name }}  = "{{ $policy_blob }}" 
 	{{ end }}
 	pkscPkiBlob_{{ $human_name }} = "{{ $pki_blob }}"
@@ -97,14 +104,37 @@ var (
 )
 
 func pkscInit_{{ $human_name }}() (err error) {
+	nodeKey := pkscNodeKey_{{ $human_name}}
+	pkiBlob := pkscPkiBlob_{{ $human_name }}
+{{ if $server }}
+	polBlob := pkscPolicyBlob_{{ $human_name }}
+{{ end }}
+
+	envNodeKey := os.Getenv(EnvPkscToken_{{ $human_name }})
+	if len(envNodeKey) > 0 {
+		nodeKey = envNodeKey
+	}
+
+	envPkiBlob := os.Getenv(EnvPkscPkiBlob_{{ $human_name }})
+	if len(envPkiBlob) > 0 {
+		pkiBlob = envPkiBlob
+	}
+
+{{ if $server }}
+	envPolicyBlob := os.Getenv(EnvPkscPolicy_{{ $human_name }})
+	if len(envPolicyBlob) > 0 {
+		polBlob = envPolicyBlob
+	}
+{{ end }}
+
 	// here we get the salt + key for hkdf
-	lk, err := b64.DecodeString(pkscNodeKey_{{ $human_name}})
+	lk, err := pkscb64.DecodeString(nodeKey)
 	if err != nil {
 		return
 	}
 
 	ihname := sha256.Sum256([]byte("{{ $human_name }}"))
-	ihk64 := sha256.Sum256([]byte(pkscNodeKey_{{ $human_name }}))
+	ihk64 := sha256.Sum256([]byte(nodeKey))
 
 	info := ihname[:]
 	info = append(info, ihk64[:]...)
@@ -123,7 +153,7 @@ func pkscInit_{{ $human_name }}() (err error) {
 
 	if len(pkscPki_{{ $human_name }}) == 0 {
 		pkscPki_{{ $human_name }} = make(NodePkiInfo)
-		err = Unmarshal(k1, ad, pkscPkiBlob_{{ $human_name }}, &pkscPki_{{ $human_name }})
+		err = Unmarshal(k1, ad, pkiBlob, &pkscPki_{{ $human_name }})
 		if err != nil {
 			return
 		}
@@ -137,7 +167,7 @@ func pkscInit_{{ $human_name }}() (err error) {
 		return
 	}
 
-	if len(pkscPolicyBlob_{{ $human_name }}) > 0 && len(pkscPolicy_{{ $human_name }}) == 0 {
+	if len(polBlob) > 0 && len(pkscPolicy_{{ $human_name }}) == 0 {
 		pkscPolicy_{{ $human_name }} = make(Hosts)
 
 		// build ad
@@ -156,7 +186,7 @@ func pkscInit_{{ $human_name }}() (err error) {
 
 		ad := adh.Sum(nil)
 
-		err = Unmarshal(k2, ad, pkscPolicyBlob_{{ $human_name }}, &pkscPolicy_{{ $human_name }})
+		err = Unmarshal(k2, ad, polBlob, &pkscPolicy_{{ $human_name }})
 		if err != nil {
 			return
 		}
