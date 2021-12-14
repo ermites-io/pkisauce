@@ -56,10 +56,9 @@ package main
 
 import (
 	"crypto/sha256"
-	"os"
+	"fmt"
 {{ if (and (eq $flavor 2) $server) }}
 	"context"
-	"fmt"
 {{end}}
 {{ if $server }}
 	"crypto/x509"
@@ -74,11 +73,13 @@ import (
 	"golang.org/x/crypto/hkdf"
 )
 
+/*
 const (
 	EnvPkscToken_{{ $human_name }}    = "PKSC_TOKEN"
 	EnvPkscPkiBlob_{{ $human_name }}  = "PKSC_TRUST"
 	EnvPkscPolicy_{{ $human_name }}   = "PKSC_POLICY"
 )
+*/
 
 const ( {{ if $server }}
 	pkscPolicyBlob_{{ $human_name }}  = "{{ $policy_blob }}" 
@@ -103,13 +104,19 @@ var (
 {{ end }}
 )
 
-func pkscInit_{{ $human_name }}() (err error) {
+func pkscInit_{{ $human_name }}(params ...string) (err error) {
 	nodeKey := pkscNodeKey_{{ $human_name}}
 	pkiBlob := pkscPkiBlob_{{ $human_name }}
 {{ if $server }}
 	polBlob := pkscPolicyBlob_{{ $human_name }}
 {{ end }}
 
+	if len(params) > 0  && len(params) != 3 {
+		err = fmt.Errorf("invalid params number")
+		return
+	}
+
+/*
 	envNodeKey := os.Getenv(EnvPkscToken_{{ $human_name }})
 	if len(envNodeKey) > 0 {
 		nodeKey = envNodeKey
@@ -126,6 +133,7 @@ func pkscInit_{{ $human_name }}() (err error) {
 		polBlob = envPolicyBlob
 	}
 {{ end }}
+*/
 
 	// here we get the salt + key for hkdf
 	lk, err := pkscb64.DecodeString(nodeKey)
