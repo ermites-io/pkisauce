@@ -56,11 +56,11 @@ package main
 
 import (
 	"crypto/sha256"
-	"fmt"
 {{ if (and (eq $flavor 2) $server) }}
 	"context"
 {{end}}
 {{ if $server }}
+	"fmt"
 	"crypto/x509"
 {{ end }}
 {{ if (or $server $client) }}
@@ -72,14 +72,6 @@ import (
 {{end}}
 	"golang.org/x/crypto/hkdf"
 )
-
-/*
-const (
-	EnvPkscToken_{{ $human_name }}    = "PKSC_TOKEN"
-	EnvPkscPkiBlob_{{ $human_name }}  = "PKSC_TRUST"
-	EnvPkscPolicy_{{ $human_name }}   = "PKSC_POLICY"
-)
-*/
 
 const ( {{ if $server }}
 	pkscPolicyBlob_{{ $human_name }}  = "{{ $policy_blob }}" 
@@ -111,29 +103,19 @@ func pkscInit_{{ $human_name }}(params ...string) (err error) {
 	polBlob := pkscPolicyBlob_{{ $human_name }}
 {{ end }}
 
-	if len(params) > 0  && len(params) != 3 {
-		err = fmt.Errorf("invalid params number")
-		return
-	}
-
-/*
-	envNodeKey := os.Getenv(EnvPkscToken_{{ $human_name }})
-	if len(envNodeKey) > 0 {
-		nodeKey = envNodeKey
-	}
-
-	envPkiBlob := os.Getenv(EnvPkscPkiBlob_{{ $human_name }})
-	if len(envPkiBlob) > 0 {
-		pkiBlob = envPkiBlob
-	}
-
 {{ if $server }}
-	envPolicyBlob := os.Getenv(EnvPkscPolicy_{{ $human_name }})
-	if len(envPolicyBlob) > 0 {
-		polBlob = envPolicyBlob
+	if len(params) > 0  && len(params) == 3 {
+		nodeKey = params[0]
+		pkiBlob = params[1]
+		polBlob = params[2]
+	}
+{{ else }}
+	if len(params) > 0  && len(params) == 2 {
+		nodeKey = params[0]
+		pkiBlob = params[1]
 	}
 {{ end }}
-*/
+
 
 	// here we get the salt + key for hkdf
 	lk, err := pkscb64.DecodeString(nodeKey)
@@ -248,8 +230,8 @@ func pkscVerifyPeerCertSrv_{{ $name }}(rawCerts [][]byte, verifiedChains [][]*x5
 
 }
 
-func pkscGrpcOptTlsServer_{{ $human_name }}() (opt grpc.ServerOption, err error) {
-	err = pkscInit_{{ $human_name }}()
+func pkscGrpcOptTlsServer_{{ $human_name }}(params ...string) (opt grpc.ServerOption, err error) {
+	err = pkscInit_{{ $human_name }}(params...)
 	if err != nil {
 		return
 	}
@@ -305,11 +287,6 @@ func pkscInterceptor_{{ $human_name }}(ctx context.Context, req interface{}, inf
 		return nil, ErrPkscGrpcAuthz
 	}
 
-/*
-	phTlsPeerIdentity := pkscPH_{{ $human_name }}.Sum64([]byte(tlsPeerIdentity))
-	phSvc := pkscPH_{{ $human_name }}.Sum64([]byte(svc))
-	phCall := pkscPH_{{ $human_name }}.Sum64([]byte(call))
- */
 	phTlsPeerIdentity := hr.Sum64([]byte(tlsPeerIdentity))
 	phSvc := hr.Sum64([]byte(svc))
 	phCall := hr.Sum64([]byte(call))
@@ -345,8 +322,8 @@ func pkscGrpcOptInterceptor_{{ $human_name }}() (opt grpc.ServerOption) {
 //
 //
 // Helper functions..
-func pkscGrpcOptTlsClient_{{ $name }}{{ $toni.HName }}() (opt grpc.DialOption, err error) {
-	err = pkscInit_{{ $human_name }}()
+func pkscGrpcOptTlsClient_{{ $name }}{{ $toni.HName }}(params ...string) (opt grpc.DialOption, err error) {
+	err = pkscInit_{{ $human_name }}(params...)
 	if err != nil {
 		return
 	}

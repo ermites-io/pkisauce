@@ -52,7 +52,7 @@ var (
 		"servB": pkscGrpcOptInterceptor_servB,
 		//"servC": pkscGrpcOptInterceptor_servC,
 	}
-	optTlsId = map[string]func() (grpc.ServerOption, error){
+	optTlsId = map[string]func(p ...string) (grpc.ServerOption, error){
 		"servA": pkscGrpcOptTlsServer_servA,
 		"servB": pkscGrpcOptTlsServer_servB,
 	}

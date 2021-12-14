@@ -98,7 +98,7 @@ func (tcm ClientTlsConfigParamsMap) TlsConfigByName(dstname string) (*tls.Config
 	return nil, ErrPkscEINVAL
 }
 
-type GrpcDialoptFuncMap map[string]func()(grpc.DialOption, error)
+type GrpcDialoptFuncMap map[string]func(p ...string)(grpc.DialOption, error)
 // lookup & exec the right tls client dialopt
 func (gdm GrpcDialoptFuncMap) DialOptByName(dstname string) (grpc.DialOption, error) {
 	f, ok := gdm[dstname]
