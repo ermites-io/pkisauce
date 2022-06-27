@@ -4,6 +4,8 @@ description: 'Generate an ephemeral pki'
 runs:
   using: "docker"
   image: "docker://ghcr.io/ermites-io/pkisauce:v0.0.1-rc3"
+  args:
+    - ${{ inputs.config }}
 inputs:
   config:  # id of input
     description: 'configuration files to generate helpers and certificates'
