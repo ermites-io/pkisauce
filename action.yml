@@ -3,7 +3,7 @@ author: ermites-io
 description: 'Generate an ephemeral pki'
 runs:
   using: "docker"
-  image: "docker://ghcr.io/ermites-io/pkisauce:v0.0.1-rc3"
+  image: "docker://ghcr.io/ermites-io/pkisauce:v0.2.0"
   args:
     - ${{ inputs.config }}
 inputs:
