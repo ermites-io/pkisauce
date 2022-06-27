@@ -1,0 +1,10 @@
+name: 'pkisauce'
+author: ermites-io
+description: 'Generate an ephemeral pki'
+runs:
+  using: "docker"
+  image: "docker://ghcr.io/ermites-io/pkisauce:v0.0.1-rc3"
+inputs:
+  config:  # id of input
+    description: 'configuration files to generate helpers and certificates'
+    required: false
