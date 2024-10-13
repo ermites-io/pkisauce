@@ -208,13 +208,14 @@ func unmarshal(key []byte, blob64 string) (h Hosts, err error) {
 // this function is used when called from gRPC policies compiled map
 
 // TODO XXX needs fuzzing.
-// we are parsing /main.Public/CallMe
+// we are parsing /main.Public/CallMe or /main.Public.v1/CallMe
 // fast, not safe, but safe enough since this arrives through parsed handlers of GRPC
 // DO NOT USE that front facing, it is NOT input sanitization yet.
 // wrapping uint might trigger a vulnerable function, but good enough
 // /test/toto parts == 3
 // parts[0] = ""
 // parts[1] = test.prout
+// parts[1] = test.prout.v1 (if proto uses version)
 // parts[2] = toto
 func parseGrpcMethod(fullmethod string) (pkg, svc, call string, err error) {
 	if len(fullmethod) > 1024 {
