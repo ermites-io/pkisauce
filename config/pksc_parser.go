@@ -1,103 +1,123 @@
-// Code generated from pksc.g4 by ANTLR 4.9.2. DO NOT EDIT.
+// Code generated from pksc.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package config // pksc
 import (
 	"fmt"
-	"reflect"
 	"strconv"
+	"sync"
 
-	"github.com/antlr/antlr4/runtime/Go/antlr"
+	"github.com/antlr4-go/antlr/v4"
 )
 
 // Suppress unused import errors
 var _ = fmt.Printf
-var _ = reflect.Copy
 var _ = strconv.Itoa
-
-var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 25, 100,
-	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
-	4, 8, 9, 8, 4, 9, 9, 9, 3, 2, 3, 2, 3, 3, 5, 3, 22, 10, 3, 3, 3, 3, 3,
-	7, 3, 26, 10, 3, 12, 3, 14, 3, 29, 11, 3, 3, 4, 3, 4, 3, 4, 3, 4, 3, 5,
-	3, 5, 3, 5, 5, 5, 38, 10, 5, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6,
-	3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 5, 6, 54, 10, 6, 3, 7, 3, 7,
-	7, 7, 58, 10, 7, 12, 7, 14, 7, 61, 11, 7, 3, 7, 3, 7, 3, 8, 3, 8, 3, 8,
-	3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8, 5, 8,
-	79, 10, 8, 3, 9, 7, 9, 82, 10, 9, 12, 9, 14, 9, 85, 11, 9, 3, 9, 7, 9,
-	88, 10, 9, 12, 9, 14, 9, 91, 11, 9, 3, 9, 6, 9, 94, 10, 9, 13, 9, 14, 9,
-	95, 5, 9, 98, 10, 9, 3, 9, 2, 2, 10, 2, 4, 6, 8, 10, 12, 14, 16, 2, 3,
-	3, 2, 20, 22, 2, 104, 2, 18, 3, 2, 2, 2, 4, 21, 3, 2, 2, 2, 6, 30, 3, 2,
-	2, 2, 8, 37, 3, 2, 2, 2, 10, 53, 3, 2, 2, 2, 12, 55, 3, 2, 2, 2, 14, 78,
-	3, 2, 2, 2, 16, 97, 3, 2, 2, 2, 18, 19, 9, 2, 2, 2, 19, 3, 3, 2, 2, 2,
-	20, 22, 7, 23, 2, 2, 21, 20, 3, 2, 2, 2, 21, 22, 3, 2, 2, 2, 22, 27, 3,
-	2, 2, 2, 23, 24, 7, 9, 2, 2, 24, 26, 7, 23, 2, 2, 25, 23, 3, 2, 2, 2, 26,
-	29, 3, 2, 2, 2, 27, 25, 3, 2, 2, 2, 27, 28, 3, 2, 2, 2, 28, 5, 3, 2, 2,
-	2, 29, 27, 3, 2, 2, 2, 30, 31, 7, 7, 2, 2, 31, 32, 5, 4, 3, 2, 32, 33,
-	7, 8, 2, 2, 33, 7, 3, 2, 2, 2, 34, 38, 7, 23, 2, 2, 35, 38, 5, 6, 4, 2,
-	36, 38, 7, 12, 2, 2, 37, 34, 3, 2, 2, 2, 37, 35, 3, 2, 2, 2, 37, 36, 3,
-	2, 2, 2, 38, 9, 3, 2, 2, 2, 39, 40, 7, 14, 2, 2, 40, 41, 5, 8, 5, 2, 41,
-	42, 7, 15, 2, 2, 42, 43, 5, 8, 5, 2, 43, 44, 7, 16, 2, 2, 44, 45, 5, 8,
-	5, 2, 45, 46, 7, 11, 2, 2, 46, 54, 3, 2, 2, 2, 47, 48, 7, 14, 2, 2, 48,
-	49, 5, 8, 5, 2, 49, 50, 7, 11, 2, 2, 50, 54, 3, 2, 2, 2, 51, 52, 7, 13,
-	2, 2, 52, 54, 7, 11, 2, 2, 53, 39, 3, 2, 2, 2, 53, 47, 3, 2, 2, 2, 53,
-	51, 3, 2, 2, 2, 54, 11, 3, 2, 2, 2, 55, 59, 7, 7, 2, 2, 56, 58, 5, 10,
-	6, 2, 57, 56, 3, 2, 2, 2, 58, 61, 3, 2, 2, 2, 59, 57, 3, 2, 2, 2, 59, 60,
-	3, 2, 2, 2, 60, 62, 3, 2, 2, 2, 61, 59, 3, 2, 2, 2, 62, 63, 7, 8, 2, 2,
-	63, 13, 3, 2, 2, 2, 64, 65, 7, 17, 2, 2, 65, 66, 7, 23, 2, 2, 66, 67, 7,
-	18, 2, 2, 67, 68, 7, 25, 2, 2, 68, 69, 7, 19, 2, 2, 69, 70, 5, 2, 2, 2,
-	70, 71, 5, 12, 7, 2, 71, 79, 3, 2, 2, 2, 72, 73, 7, 17, 2, 2, 73, 74, 7,
-	23, 2, 2, 74, 75, 7, 18, 2, 2, 75, 76, 7, 25, 2, 2, 76, 77, 7, 19, 2, 2,
-	77, 79, 5, 2, 2, 2, 78, 64, 3, 2, 2, 2, 78, 72, 3, 2, 2, 2, 79, 15, 3,
-	2, 2, 2, 80, 82, 7, 4, 2, 2, 81, 80, 3, 2, 2, 2, 82, 85, 3, 2, 2, 2, 83,
-	81, 3, 2, 2, 2, 83, 84, 3, 2, 2, 2, 84, 98, 3, 2, 2, 2, 85, 83, 3, 2, 2,
-	2, 86, 88, 7, 5, 2, 2, 87, 86, 3, 2, 2, 2, 88, 91, 3, 2, 2, 2, 89, 87,
-	3, 2, 2, 2, 89, 90, 3, 2, 2, 2, 90, 98, 3, 2, 2, 2, 91, 89, 3, 2, 2, 2,
-	92, 94, 5, 14, 8, 2, 93, 92, 3, 2, 2, 2, 94, 95, 3, 2, 2, 2, 95, 93, 3,
-	2, 2, 2, 95, 96, 3, 2, 2, 2, 96, 98, 3, 2, 2, 2, 97, 83, 3, 2, 2, 2, 97,
-	89, 3, 2, 2, 2, 97, 93, 3, 2, 2, 2, 98, 17, 3, 2, 2, 2, 12, 21, 27, 37,
-	53, 59, 78, 83, 89, 95, 97,
-}
-var literalNames = []string{
-	"", "", "", "", "", "'{'", "'}'", "','", "'\"'", "';'", "'any'", "'debug'",
-	"'pass'", "'on'", "'rpc'", "'daemon'", "'path'", "'use'", "'go-grpc'",
-	"'go-tls'", "'pem'",
-}
-var symbolicNames = []string{
-	"", "WS", "COMMENT", "LINE_COMMENT", "TERMINATOR", "LCURLY", "RCURLY",
-	"COMMA", "QUOTE", "SEMI", "KWANY", "KWDBG", "KWPASS", "KWON", "KWRPC",
-	"KWDAEMON", "KWPATH", "KWUSE", "KWGOGRPC", "KWGOTLS", "KWPEM", "HNAME",
-	"IDENTIFIER", "PATH",
-}
-
-var ruleNames = []string{
-	"gen_type", "name_elt_list", "name_list", "name_block", "pass_stmt", "pass_block",
-	"daemon_stmt", "config",
-}
+var _ = sync.Once{}
 
 type pkscParser struct {
 	*antlr.BaseParser
 }
 
-// NewpkscParser produces a new parser instance for the optional input antlr.TokenStream.
-//
-// The *pkscParser instance produced may be reused by calling the SetInputStream method.
-// The initial parser configuration is expensive to construct, and the object is not thread-safe;
-// however, if used within a Golang sync.Pool, the construction cost amortizes well and the
-// objects can be used in a thread-safe manner.
-func NewpkscParser(input antlr.TokenStream) *pkscParser {
-	this := new(pkscParser)
-	deserializer := antlr.NewATNDeserializer(nil)
-	deserializedATN := deserializer.DeserializeFromUInt16(parserATN)
-	decisionToDFA := make([]*antlr.DFA, len(deserializedATN.DecisionToState))
-	for index, ds := range deserializedATN.DecisionToState {
-		decisionToDFA[index] = antlr.NewDFA(ds, index)
-	}
-	this.BaseParser = antlr.NewBaseParser(input)
+var PkscParserStaticData struct {
+	once                   sync.Once
+	serializedATN          []int32
+	LiteralNames           []string
+	SymbolicNames          []string
+	RuleNames              []string
+	PredictionContextCache *antlr.PredictionContextCache
+	atn                    *antlr.ATN
+	decisionToDFA          []*antlr.DFA
+}
 
-	this.Interpreter = antlr.NewParserATNSimulator(this, deserializedATN, decisionToDFA, antlr.NewPredictionContextCache())
-	this.RuleNames = ruleNames
-	this.LiteralNames = literalNames
-	this.SymbolicNames = symbolicNames
+func pkscParserInit() {
+	staticData := &PkscParserStaticData
+	staticData.LiteralNames = []string{
+		"", "", "", "", "", "'{'", "'}'", "','", "'\"'", "';'", "'any'", "'debug'",
+		"'pass'", "'on'", "'rpc'", "'daemon'", "'path'", "'use'", "'go-grpc'",
+		"'go-tls'", "'pem'",
+	}
+	staticData.SymbolicNames = []string{
+		"", "WS", "COMMENT", "LINE_COMMENT", "TERMINATOR", "LCURLY", "RCURLY",
+		"COMMA", "QUOTE", "SEMI", "KWANY", "KWDBG", "KWPASS", "KWON", "KWRPC",
+		"KWDAEMON", "KWPATH", "KWUSE", "KWGOGRPC", "KWGOTLS", "KWPEM", "HNAME",
+		"IDENTIFIER", "PATH",
+	}
+	staticData.RuleNames = []string{
+		"gen_type", "name_elt_list", "name_list", "name_block", "pass_stmt",
+		"pass_block", "daemon_stmt", "config",
+	}
+	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
+	staticData.serializedATN = []int32{
+		4, 1, 23, 98, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
+		4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 1, 0, 1, 0, 1, 1, 3, 1, 20, 8, 1,
+		1, 1, 1, 1, 5, 1, 24, 8, 1, 10, 1, 12, 1, 27, 9, 1, 1, 2, 1, 2, 1, 2, 1,
+		2, 1, 3, 1, 3, 1, 3, 3, 3, 36, 8, 3, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4,
+		1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 3, 4, 52, 8, 4, 1, 5, 1,
+		5, 5, 5, 56, 8, 5, 10, 5, 12, 5, 59, 9, 5, 1, 5, 1, 5, 1, 6, 1, 6, 1, 6,
+		1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 3, 6,
+		77, 8, 6, 1, 7, 5, 7, 80, 8, 7, 10, 7, 12, 7, 83, 9, 7, 1, 7, 5, 7, 86,
+		8, 7, 10, 7, 12, 7, 89, 9, 7, 1, 7, 4, 7, 92, 8, 7, 11, 7, 12, 7, 93, 3,
+		7, 96, 8, 7, 1, 7, 0, 0, 8, 0, 2, 4, 6, 8, 10, 12, 14, 0, 1, 1, 0, 18,
+		20, 102, 0, 16, 1, 0, 0, 0, 2, 19, 1, 0, 0, 0, 4, 28, 1, 0, 0, 0, 6, 35,
+		1, 0, 0, 0, 8, 51, 1, 0, 0, 0, 10, 53, 1, 0, 0, 0, 12, 76, 1, 0, 0, 0,
+		14, 95, 1, 0, 0, 0, 16, 17, 7, 0, 0, 0, 17, 1, 1, 0, 0, 0, 18, 20, 5, 21,
+		0, 0, 19, 18, 1, 0, 0, 0, 19, 20, 1, 0, 0, 0, 20, 25, 1, 0, 0, 0, 21, 22,
+		5, 7, 0, 0, 22, 24, 5, 21, 0, 0, 23, 21, 1, 0, 0, 0, 24, 27, 1, 0, 0, 0,
+		25, 23, 1, 0, 0, 0, 25, 26, 1, 0, 0, 0, 26, 3, 1, 0, 0, 0, 27, 25, 1, 0,
+		0, 0, 28, 29, 5, 5, 0, 0, 29, 30, 3, 2, 1, 0, 30, 31, 5, 6, 0, 0, 31, 5,
+		1, 0, 0, 0, 32, 36, 5, 21, 0, 0, 33, 36, 3, 4, 2, 0, 34, 36, 5, 10, 0,
+		0, 35, 32, 1, 0, 0, 0, 35, 33, 1, 0, 0, 0, 35, 34, 1, 0, 0, 0, 36, 7, 1,
+		0, 0, 0, 37, 38, 5, 12, 0, 0, 38, 39, 3, 6, 3, 0, 39, 40, 5, 13, 0, 0,
+		40, 41, 3, 6, 3, 0, 41, 42, 5, 14, 0, 0, 42, 43, 3, 6, 3, 0, 43, 44, 5,
+		9, 0, 0, 44, 52, 1, 0, 0, 0, 45, 46, 5, 12, 0, 0, 46, 47, 3, 6, 3, 0, 47,
+		48, 5, 9, 0, 0, 48, 52, 1, 0, 0, 0, 49, 50, 5, 11, 0, 0, 50, 52, 5, 9,
+		0, 0, 51, 37, 1, 0, 0, 0, 51, 45, 1, 0, 0, 0, 51, 49, 1, 0, 0, 0, 52, 9,
+		1, 0, 0, 0, 53, 57, 5, 5, 0, 0, 54, 56, 3, 8, 4, 0, 55, 54, 1, 0, 0, 0,
+		56, 59, 1, 0, 0, 0, 57, 55, 1, 0, 0, 0, 57, 58, 1, 0, 0, 0, 58, 60, 1,
+		0, 0, 0, 59, 57, 1, 0, 0, 0, 60, 61, 5, 6, 0, 0, 61, 11, 1, 0, 0, 0, 62,
+		63, 5, 15, 0, 0, 63, 64, 5, 21, 0, 0, 64, 65, 5, 16, 0, 0, 65, 66, 5, 23,
+		0, 0, 66, 67, 5, 17, 0, 0, 67, 68, 3, 0, 0, 0, 68, 69, 3, 10, 5, 0, 69,
+		77, 1, 0, 0, 0, 70, 71, 5, 15, 0, 0, 71, 72, 5, 21, 0, 0, 72, 73, 5, 16,
+		0, 0, 73, 74, 5, 23, 0, 0, 74, 75, 5, 17, 0, 0, 75, 77, 3, 0, 0, 0, 76,
+		62, 1, 0, 0, 0, 76, 70, 1, 0, 0, 0, 77, 13, 1, 0, 0, 0, 78, 80, 5, 2, 0,
+		0, 79, 78, 1, 0, 0, 0, 80, 83, 1, 0, 0, 0, 81, 79, 1, 0, 0, 0, 81, 82,
+		1, 0, 0, 0, 82, 96, 1, 0, 0, 0, 83, 81, 1, 0, 0, 0, 84, 86, 5, 3, 0, 0,
+		85, 84, 1, 0, 0, 0, 86, 89, 1, 0, 0, 0, 87, 85, 1, 0, 0, 0, 87, 88, 1,
+		0, 0, 0, 88, 96, 1, 0, 0, 0, 89, 87, 1, 0, 0, 0, 90, 92, 3, 12, 6, 0, 91,
+		90, 1, 0, 0, 0, 92, 93, 1, 0, 0, 0, 93, 91, 1, 0, 0, 0, 93, 94, 1, 0, 0,
+		0, 94, 96, 1, 0, 0, 0, 95, 81, 1, 0, 0, 0, 95, 87, 1, 0, 0, 0, 95, 91,
+		1, 0, 0, 0, 96, 15, 1, 0, 0, 0, 10, 19, 25, 35, 51, 57, 76, 81, 87, 93,
+		95,
+	}
+	deserializer := antlr.NewATNDeserializer(nil)
+	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
+	atn := staticData.atn
+	staticData.decisionToDFA = make([]*antlr.DFA, len(atn.DecisionToState))
+	decisionToDFA := staticData.decisionToDFA
+	for index, state := range atn.DecisionToState {
+		decisionToDFA[index] = antlr.NewDFA(state, index)
+	}
+}
+
+// pkscParserInit initializes any static state used to implement pkscParser. By default the
+// static state used to implement the parser is lazily initialized during the first call to
+// NewpkscParser(). You can call this function if you wish to initialize the static state ahead
+// of time.
+func PkscParserInit() {
+	staticData := &PkscParserStaticData
+	staticData.once.Do(pkscParserInit)
+}
+
+// NewpkscParser produces a new parser instance for the optional input antlr.TokenStream.
+func NewpkscParser(input antlr.TokenStream) *pkscParser {
+	PkscParserInit()
+	this := new(pkscParser)
+	this.BaseParser = antlr.NewBaseParser(input)
+	staticData := &PkscParserStaticData
+	this.Interpreter = antlr.NewParserATNSimulator(this, staticData.atn, staticData.decisionToDFA, staticData.PredictionContextCache)
+	this.RuleNames = staticData.RuleNames
+	this.LiteralNames = staticData.LiteralNames
+	this.SymbolicNames = staticData.SymbolicNames
 	this.GrammarFileName = "pksc.g4"
 
 	return this
@@ -150,20 +170,30 @@ type IGen_typeContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Getter signatures
+	KWGOGRPC() antlr.TerminalNode
+	KWGOTLS() antlr.TerminalNode
+	KWPEM() antlr.TerminalNode
+
 	// IsGen_typeContext differentiates from other interfaces.
 	IsGen_typeContext()
 }
 
 type Gen_typeContext struct {
-	*antlr.BaseParserRuleContext
+	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
 func NewEmptyGen_typeContext() *Gen_typeContext {
 	var p = new(Gen_typeContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
 	p.RuleIndex = pkscParserRULE_gen_type
 	return p
+}
+
+func InitEmptyGen_typeContext(p *Gen_typeContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = pkscParserRULE_gen_type
 }
 
 func (*Gen_typeContext) IsGen_typeContext() {}
@@ -171,7 +201,7 @@ func (*Gen_typeContext) IsGen_typeContext() {}
 func NewGen_typeContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Gen_typeContext {
 	var p = new(Gen_typeContext)
 
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
 	p.RuleIndex = pkscParserRULE_gen_type
@@ -218,28 +248,12 @@ func (p *pkscParser) Gen_type() (localctx IGen_typeContext) {
 	p.EnterRule(localctx, 0, pkscParserRULE_gen_type)
 	var _la int
 
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(16)
 		_la = p.GetTokenStream().LA(1)
 
-		if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<pkscParserKWGOGRPC)|(1<<pkscParserKWGOTLS)|(1<<pkscParserKWPEM))) != 0) {
+		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&1835008) != 0) {
 			p.GetErrorHandler().RecoverInline(p)
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
@@ -247,7 +261,17 @@ func (p *pkscParser) Gen_type() (localctx IGen_typeContext) {
 		}
 	}
 
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
 	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
 // IName_elt_listContext is an interface to support dynamic dispatch.
@@ -257,20 +281,31 @@ type IName_elt_listContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Getter signatures
+	AllHNAME() []antlr.TerminalNode
+	HNAME(i int) antlr.TerminalNode
+	AllCOMMA() []antlr.TerminalNode
+	COMMA(i int) antlr.TerminalNode
+
 	// IsName_elt_listContext differentiates from other interfaces.
 	IsName_elt_listContext()
 }
 
 type Name_elt_listContext struct {
-	*antlr.BaseParserRuleContext
+	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
 func NewEmptyName_elt_listContext() *Name_elt_listContext {
 	var p = new(Name_elt_listContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
 	p.RuleIndex = pkscParserRULE_name_elt_list
 	return p
+}
+
+func InitEmptyName_elt_listContext(p *Name_elt_listContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = pkscParserRULE_name_elt_list
 }
 
 func (*Name_elt_listContext) IsName_elt_listContext() {}
@@ -278,7 +313,7 @@ func (*Name_elt_listContext) IsName_elt_listContext() {}
 func NewName_elt_listContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Name_elt_listContext {
 	var p = new(Name_elt_listContext)
 
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
 	p.RuleIndex = pkscParserRULE_name_elt_list
@@ -329,54 +364,69 @@ func (p *pkscParser) Name_elt_list() (localctx IName_elt_listContext) {
 	p.EnterRule(localctx, 2, pkscParserRULE_name_elt_list)
 	var _la int
 
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
 	p.EnterOuterAlt(localctx, 1)
 	p.SetState(19)
 	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
 	_la = p.GetTokenStream().LA(1)
 
 	if _la == pkscParserHNAME {
 		{
 			p.SetState(18)
 			p.Match(pkscParserHNAME)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	}
 	p.SetState(25)
 	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
 	_la = p.GetTokenStream().LA(1)
 
 	for _la == pkscParserCOMMA {
 		{
 			p.SetState(21)
 			p.Match(pkscParserCOMMA)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(22)
 			p.Match(pkscParserHNAME)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 		p.SetState(27)
 		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
 		_la = p.GetTokenStream().LA(1)
 	}
 
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
 	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
 // IName_listContext is an interface to support dynamic dispatch.
@@ -386,20 +436,30 @@ type IName_listContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Getter signatures
+	LCURLY() antlr.TerminalNode
+	Name_elt_list() IName_elt_listContext
+	RCURLY() antlr.TerminalNode
+
 	// IsName_listContext differentiates from other interfaces.
 	IsName_listContext()
 }
 
 type Name_listContext struct {
-	*antlr.BaseParserRuleContext
+	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
 func NewEmptyName_listContext() *Name_listContext {
 	var p = new(Name_listContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
 	p.RuleIndex = pkscParserRULE_name_list
 	return p
+}
+
+func InitEmptyName_listContext(p *Name_listContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = pkscParserRULE_name_list
 }
 
 func (*Name_listContext) IsName_listContext() {}
@@ -407,7 +467,7 @@ func (*Name_listContext) IsName_listContext() {}
 func NewName_listContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Name_listContext {
 	var p = new(Name_listContext)
 
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
 	p.RuleIndex = pkscParserRULE_name_list
@@ -422,7 +482,13 @@ func (s *Name_listContext) LCURLY() antlr.TerminalNode {
 }
 
 func (s *Name_listContext) Name_elt_list() IName_elt_listContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IName_elt_listContext)(nil)).Elem(), 0)
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IName_elt_listContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
 
 	if t == nil {
 		return nil
@@ -458,27 +524,14 @@ func (s *Name_listContext) ExitRule(listener antlr.ParseTreeListener) {
 func (p *pkscParser) Name_list() (localctx IName_listContext) {
 	localctx = NewName_listContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 4, pkscParserRULE_name_list)
-
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(28)
 		p.Match(pkscParserLCURLY)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
 	}
 	{
 		p.SetState(29)
@@ -487,9 +540,23 @@ func (p *pkscParser) Name_list() (localctx IName_listContext) {
 	{
 		p.SetState(30)
 		p.Match(pkscParserRCURLY)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
 	}
 
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
 	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
 // IName_blockContext is an interface to support dynamic dispatch.
@@ -499,20 +566,30 @@ type IName_blockContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Getter signatures
+	HNAME() antlr.TerminalNode
+	Name_list() IName_listContext
+	KWANY() antlr.TerminalNode
+
 	// IsName_blockContext differentiates from other interfaces.
 	IsName_blockContext()
 }
 
 type Name_blockContext struct {
-	*antlr.BaseParserRuleContext
+	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
 func NewEmptyName_blockContext() *Name_blockContext {
 	var p = new(Name_blockContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
 	p.RuleIndex = pkscParserRULE_name_block
 	return p
+}
+
+func InitEmptyName_blockContext(p *Name_blockContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = pkscParserRULE_name_block
 }
 
 func (*Name_blockContext) IsName_blockContext() {}
@@ -520,7 +597,7 @@ func (*Name_blockContext) IsName_blockContext() {}
 func NewName_blockContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Name_blockContext {
 	var p = new(Name_blockContext)
 
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
 	p.RuleIndex = pkscParserRULE_name_block
@@ -535,7 +612,13 @@ func (s *Name_blockContext) HNAME() antlr.TerminalNode {
 }
 
 func (s *Name_blockContext) Name_list() IName_listContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IName_listContext)(nil)).Elem(), 0)
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IName_listContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
 
 	if t == nil {
 		return nil
@@ -571,25 +654,11 @@ func (s *Name_blockContext) ExitRule(listener antlr.ParseTreeListener) {
 func (p *pkscParser) Name_block() (localctx IName_blockContext) {
 	localctx = NewName_blockContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 6, pkscParserRULE_name_block)
-
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
 	p.SetState(35)
 	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
 
 	switch p.GetTokenStream().LA(1) {
 	case pkscParserHNAME:
@@ -597,6 +666,10 @@ func (p *pkscParser) Name_block() (localctx IName_blockContext) {
 		{
 			p.SetState(32)
 			p.Match(pkscParserHNAME)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	case pkscParserLCURLY:
@@ -611,13 +684,28 @@ func (p *pkscParser) Name_block() (localctx IName_blockContext) {
 		{
 			p.SetState(34)
 			p.Match(pkscParserKWANY)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	default:
-		panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
+		p.SetError(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
+		goto errorExit
 	}
 
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
 	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
 // IPass_stmtContext is an interface to support dynamic dispatch.
@@ -627,20 +715,34 @@ type IPass_stmtContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Getter signatures
+	KWPASS() antlr.TerminalNode
+	AllName_block() []IName_blockContext
+	Name_block(i int) IName_blockContext
+	KWON() antlr.TerminalNode
+	KWRPC() antlr.TerminalNode
+	SEMI() antlr.TerminalNode
+	KWDBG() antlr.TerminalNode
+
 	// IsPass_stmtContext differentiates from other interfaces.
 	IsPass_stmtContext()
 }
 
 type Pass_stmtContext struct {
-	*antlr.BaseParserRuleContext
+	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
 func NewEmptyPass_stmtContext() *Pass_stmtContext {
 	var p = new(Pass_stmtContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
 	p.RuleIndex = pkscParserRULE_pass_stmt
 	return p
+}
+
+func InitEmptyPass_stmtContext(p *Pass_stmtContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = pkscParserRULE_pass_stmt
 }
 
 func (*Pass_stmtContext) IsPass_stmtContext() {}
@@ -648,7 +750,7 @@ func (*Pass_stmtContext) IsPass_stmtContext() {}
 func NewPass_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Pass_stmtContext {
 	var p = new(Pass_stmtContext)
 
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
 	p.RuleIndex = pkscParserRULE_pass_stmt
@@ -663,12 +765,20 @@ func (s *Pass_stmtContext) KWPASS() antlr.TerminalNode {
 }
 
 func (s *Pass_stmtContext) AllName_block() []IName_blockContext {
-	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IName_blockContext)(nil)).Elem())
-	var tst = make([]IName_blockContext, len(ts))
+	children := s.GetChildren()
+	len := 0
+	for _, ctx := range children {
+		if _, ok := ctx.(IName_blockContext); ok {
+			len++
+		}
+	}
 
-	for i, t := range ts {
-		if t != nil {
+	tst := make([]IName_blockContext, len)
+	i := 0
+	for _, ctx := range children {
+		if t, ok := ctx.(IName_blockContext); ok {
 			tst[i] = t.(IName_blockContext)
+			i++
 		}
 	}
 
@@ -676,7 +786,17 @@ func (s *Pass_stmtContext) AllName_block() []IName_blockContext {
 }
 
 func (s *Pass_stmtContext) Name_block(i int) IName_blockContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IName_blockContext)(nil)).Elem(), i)
+	var t antlr.RuleContext
+	j := 0
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IName_blockContext); ok {
+			if j == i {
+				t = ctx.(antlr.RuleContext)
+				break
+			}
+			j++
+		}
+	}
 
 	if t == nil {
 		return nil
@@ -724,31 +844,22 @@ func (s *Pass_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
 func (p *pkscParser) Pass_stmt() (localctx IPass_stmtContext) {
 	localctx = NewPass_stmtContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 8, pkscParserRULE_pass_stmt)
-
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
 	p.SetState(51)
 	p.GetErrorHandler().Sync(p)
-	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 3, p.GetParserRuleContext()) {
+	if p.HasError() {
+		goto errorExit
+	}
+
+	switch p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 3, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(37)
 			p.Match(pkscParserKWPASS)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(38)
@@ -757,6 +868,10 @@ func (p *pkscParser) Pass_stmt() (localctx IPass_stmtContext) {
 		{
 			p.SetState(39)
 			p.Match(pkscParserKWON)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(40)
@@ -765,6 +880,10 @@ func (p *pkscParser) Pass_stmt() (localctx IPass_stmtContext) {
 		{
 			p.SetState(41)
 			p.Match(pkscParserKWRPC)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(42)
@@ -773,6 +892,10 @@ func (p *pkscParser) Pass_stmt() (localctx IPass_stmtContext) {
 		{
 			p.SetState(43)
 			p.Match(pkscParserSEMI)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	case 2:
@@ -780,6 +903,10 @@ func (p *pkscParser) Pass_stmt() (localctx IPass_stmtContext) {
 		{
 			p.SetState(45)
 			p.Match(pkscParserKWPASS)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(46)
@@ -788,6 +915,10 @@ func (p *pkscParser) Pass_stmt() (localctx IPass_stmtContext) {
 		{
 			p.SetState(47)
 			p.Match(pkscParserSEMI)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	case 3:
@@ -795,15 +926,35 @@ func (p *pkscParser) Pass_stmt() (localctx IPass_stmtContext) {
 		{
 			p.SetState(49)
 			p.Match(pkscParserKWDBG)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(50)
 			p.Match(pkscParserSEMI)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
+	case antlr.ATNInvalidAltNumber:
+		goto errorExit
 	}
 
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
 	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
 // IPass_blockContext is an interface to support dynamic dispatch.
@@ -813,20 +964,31 @@ type IPass_blockContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Getter signatures
+	LCURLY() antlr.TerminalNode
+	RCURLY() antlr.TerminalNode
+	AllPass_stmt() []IPass_stmtContext
+	Pass_stmt(i int) IPass_stmtContext
+
 	// IsPass_blockContext differentiates from other interfaces.
 	IsPass_blockContext()
 }
 
 type Pass_blockContext struct {
-	*antlr.BaseParserRuleContext
+	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
 func NewEmptyPass_blockContext() *Pass_blockContext {
 	var p = new(Pass_blockContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
 	p.RuleIndex = pkscParserRULE_pass_block
 	return p
+}
+
+func InitEmptyPass_blockContext(p *Pass_blockContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = pkscParserRULE_pass_block
 }
 
 func (*Pass_blockContext) IsPass_blockContext() {}
@@ -834,7 +996,7 @@ func (*Pass_blockContext) IsPass_blockContext() {}
 func NewPass_blockContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Pass_blockContext {
 	var p = new(Pass_blockContext)
 
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
 	p.RuleIndex = pkscParserRULE_pass_block
@@ -853,12 +1015,20 @@ func (s *Pass_blockContext) RCURLY() antlr.TerminalNode {
 }
 
 func (s *Pass_blockContext) AllPass_stmt() []IPass_stmtContext {
-	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IPass_stmtContext)(nil)).Elem())
-	var tst = make([]IPass_stmtContext, len(ts))
+	children := s.GetChildren()
+	len := 0
+	for _, ctx := range children {
+		if _, ok := ctx.(IPass_stmtContext); ok {
+			len++
+		}
+	}
 
-	for i, t := range ts {
-		if t != nil {
+	tst := make([]IPass_stmtContext, len)
+	i := 0
+	for _, ctx := range children {
+		if t, ok := ctx.(IPass_stmtContext); ok {
 			tst[i] = t.(IPass_stmtContext)
+			i++
 		}
 	}
 
@@ -866,7 +1036,17 @@ func (s *Pass_blockContext) AllPass_stmt() []IPass_stmtContext {
 }
 
 func (s *Pass_blockContext) Pass_stmt(i int) IPass_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IPass_stmtContext)(nil)).Elem(), i)
+	var t antlr.RuleContext
+	j := 0
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IPass_stmtContext); ok {
+			if j == i {
+				t = ctx.(antlr.RuleContext)
+				break
+			}
+			j++
+		}
+	}
 
 	if t == nil {
 		return nil
@@ -900,29 +1080,20 @@ func (p *pkscParser) Pass_block() (localctx IPass_blockContext) {
 	p.EnterRule(localctx, 10, pkscParserRULE_pass_block)
 	var _la int
 
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(53)
 		p.Match(pkscParserLCURLY)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
 	}
 	p.SetState(57)
 	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
 	_la = p.GetTokenStream().LA(1)
 
 	for _la == pkscParserKWDBG || _la == pkscParserKWPASS {
@@ -933,14 +1104,31 @@ func (p *pkscParser) Pass_block() (localctx IPass_blockContext) {
 
 		p.SetState(59)
 		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
 		p.SetState(60)
 		p.Match(pkscParserRCURLY)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
 	}
 
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
 	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
 // IDaemon_stmtContext is an interface to support dynamic dispatch.
@@ -950,20 +1138,34 @@ type IDaemon_stmtContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Getter signatures
+	KWDAEMON() antlr.TerminalNode
+	HNAME() antlr.TerminalNode
+	KWPATH() antlr.TerminalNode
+	PATH() antlr.TerminalNode
+	KWUSE() antlr.TerminalNode
+	Gen_type() IGen_typeContext
+	Pass_block() IPass_blockContext
+
 	// IsDaemon_stmtContext differentiates from other interfaces.
 	IsDaemon_stmtContext()
 }
 
 type Daemon_stmtContext struct {
-	*antlr.BaseParserRuleContext
+	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
 func NewEmptyDaemon_stmtContext() *Daemon_stmtContext {
 	var p = new(Daemon_stmtContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
 	p.RuleIndex = pkscParserRULE_daemon_stmt
 	return p
+}
+
+func InitEmptyDaemon_stmtContext(p *Daemon_stmtContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = pkscParserRULE_daemon_stmt
 }
 
 func (*Daemon_stmtContext) IsDaemon_stmtContext() {}
@@ -971,7 +1173,7 @@ func (*Daemon_stmtContext) IsDaemon_stmtContext() {}
 func NewDaemon_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Daemon_stmtContext {
 	var p = new(Daemon_stmtContext)
 
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
 	p.RuleIndex = pkscParserRULE_daemon_stmt
@@ -1002,7 +1204,13 @@ func (s *Daemon_stmtContext) KWUSE() antlr.TerminalNode {
 }
 
 func (s *Daemon_stmtContext) Gen_type() IGen_typeContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IGen_typeContext)(nil)).Elem(), 0)
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IGen_typeContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
 
 	if t == nil {
 		return nil
@@ -1012,7 +1220,13 @@ func (s *Daemon_stmtContext) Gen_type() IGen_typeContext {
 }
 
 func (s *Daemon_stmtContext) Pass_block() IPass_blockContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IPass_blockContext)(nil)).Elem(), 0)
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IPass_blockContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
 
 	if t == nil {
 		return nil
@@ -1044,47 +1258,54 @@ func (s *Daemon_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
 func (p *pkscParser) Daemon_stmt() (localctx IDaemon_stmtContext) {
 	localctx = NewDaemon_stmtContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 12, pkscParserRULE_daemon_stmt)
-
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
 	p.SetState(76)
 	p.GetErrorHandler().Sync(p)
-	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 5, p.GetParserRuleContext()) {
+	if p.HasError() {
+		goto errorExit
+	}
+
+	switch p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 5, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(62)
 			p.Match(pkscParserKWDAEMON)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(63)
 			p.Match(pkscParserHNAME)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(64)
 			p.Match(pkscParserKWPATH)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(65)
 			p.Match(pkscParserPATH)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(66)
 			p.Match(pkscParserKWUSE)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(67)
@@ -1100,31 +1321,63 @@ func (p *pkscParser) Daemon_stmt() (localctx IDaemon_stmtContext) {
 		{
 			p.SetState(70)
 			p.Match(pkscParserKWDAEMON)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(71)
 			p.Match(pkscParserHNAME)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(72)
 			p.Match(pkscParserKWPATH)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(73)
 			p.Match(pkscParserPATH)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(74)
 			p.Match(pkscParserKWUSE)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(75)
 			p.Gen_type()
 		}
 
+	case antlr.ATNInvalidAltNumber:
+		goto errorExit
 	}
 
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
 	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
 // IConfigContext is an interface to support dynamic dispatch.
@@ -1134,20 +1387,33 @@ type IConfigContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Getter signatures
+	AllCOMMENT() []antlr.TerminalNode
+	COMMENT(i int) antlr.TerminalNode
+	AllLINE_COMMENT() []antlr.TerminalNode
+	LINE_COMMENT(i int) antlr.TerminalNode
+	AllDaemon_stmt() []IDaemon_stmtContext
+	Daemon_stmt(i int) IDaemon_stmtContext
+
 	// IsConfigContext differentiates from other interfaces.
 	IsConfigContext()
 }
 
 type ConfigContext struct {
-	*antlr.BaseParserRuleContext
+	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
 func NewEmptyConfigContext() *ConfigContext {
 	var p = new(ConfigContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
 	p.RuleIndex = pkscParserRULE_config
 	return p
+}
+
+func InitEmptyConfigContext(p *ConfigContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = pkscParserRULE_config
 }
 
 func (*ConfigContext) IsConfigContext() {}
@@ -1155,7 +1421,7 @@ func (*ConfigContext) IsConfigContext() {}
 func NewConfigContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *ConfigContext {
 	var p = new(ConfigContext)
 
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
 	p.RuleIndex = pkscParserRULE_config
@@ -1182,12 +1448,20 @@ func (s *ConfigContext) LINE_COMMENT(i int) antlr.TerminalNode {
 }
 
 func (s *ConfigContext) AllDaemon_stmt() []IDaemon_stmtContext {
-	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IDaemon_stmtContext)(nil)).Elem())
-	var tst = make([]IDaemon_stmtContext, len(ts))
+	children := s.GetChildren()
+	len := 0
+	for _, ctx := range children {
+		if _, ok := ctx.(IDaemon_stmtContext); ok {
+			len++
+		}
+	}
 
-	for i, t := range ts {
-		if t != nil {
+	tst := make([]IDaemon_stmtContext, len)
+	i := 0
+	for _, ctx := range children {
+		if t, ok := ctx.(IDaemon_stmtContext); ok {
 			tst[i] = t.(IDaemon_stmtContext)
+			i++
 		}
 	}
 
@@ -1195,7 +1469,17 @@ func (s *ConfigContext) AllDaemon_stmt() []IDaemon_stmtContext {
 }
 
 func (s *ConfigContext) Daemon_stmt(i int) IDaemon_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDaemon_stmtContext)(nil)).Elem(), i)
+	var t antlr.RuleContext
+	j := 0
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IDaemon_stmtContext); ok {
+			if j == i {
+				t = ctx.(antlr.RuleContext)
+				break
+			}
+			j++
+		}
+	}
 
 	if t == nil {
 		return nil
@@ -1229,39 +1513,37 @@ func (p *pkscParser) Config() (localctx IConfigContext) {
 	p.EnterRule(localctx, 14, pkscParserRULE_config)
 	var _la int
 
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
 	p.SetState(95)
 	p.GetErrorHandler().Sync(p)
-	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 9, p.GetParserRuleContext()) {
+	if p.HasError() {
+		goto errorExit
+	}
+
+	switch p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 9, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		p.SetState(81)
 		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
 		_la = p.GetTokenStream().LA(1)
 
 		for _la == pkscParserCOMMENT {
 			{
 				p.SetState(78)
 				p.Match(pkscParserCOMMENT)
+				if p.HasError() {
+					// Recognition error - abort rule
+					goto errorExit
+				}
 			}
 
 			p.SetState(83)
 			p.GetErrorHandler().Sync(p)
+			if p.HasError() {
+				goto errorExit
+			}
 			_la = p.GetTokenStream().LA(1)
 		}
 
@@ -1269,16 +1551,26 @@ func (p *pkscParser) Config() (localctx IConfigContext) {
 		p.EnterOuterAlt(localctx, 2)
 		p.SetState(87)
 		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
 		_la = p.GetTokenStream().LA(1)
 
 		for _la == pkscParserLINE_COMMENT {
 			{
 				p.SetState(84)
 				p.Match(pkscParserLINE_COMMENT)
+				if p.HasError() {
+					// Recognition error - abort rule
+					goto errorExit
+				}
 			}
 
 			p.SetState(89)
 			p.GetErrorHandler().Sync(p)
+			if p.HasError() {
+				goto errorExit
+			}
 			_la = p.GetTokenStream().LA(1)
 		}
 
@@ -1286,6 +1578,9 @@ func (p *pkscParser) Config() (localctx IConfigContext) {
 		p.EnterOuterAlt(localctx, 3)
 		p.SetState(91)
 		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
 		_la = p.GetTokenStream().LA(1)
 
 		for ok := true; ok; ok = _la == pkscParserKWDAEMON {
@@ -1296,10 +1591,25 @@ func (p *pkscParser) Config() (localctx IConfigContext) {
 
 			p.SetState(93)
 			p.GetErrorHandler().Sync(p)
+			if p.HasError() {
+				goto errorExit
+			}
 			_la = p.GetTokenStream().LA(1)
 		}
 
+	case antlr.ATNInvalidAltNumber:
+		goto errorExit
 	}
 
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
 	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
 }
