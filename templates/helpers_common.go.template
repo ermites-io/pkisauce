@@ -229,12 +229,16 @@ func parseGrpcMethod(fullmethod string) (pkg, svc, call string, err error) {
 		return
 	}
 
+	// if the package contains a version, then we will have 3 parts
+	// if it doesn't, then only two.
 	pkgSvcFields := strings.Split(fullMethodFields[1], ".")
 	switch len(pkgSvcFields) {
 		case 2:
 			pkg = pkgSvcFields[0]
 			svc = pkgSvcFields[1]
 		case 3:
+			// we skip the version located in fields[1]
+			// we will support it in a future version.
 			pkg = pkgSvcFields[0]
 			svc = pkgSvcFields[2]
 		default:
