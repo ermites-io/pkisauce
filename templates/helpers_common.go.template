@@ -229,13 +229,18 @@ func parseGrpcMethod(fullmethod string) (pkg, svc, call string, err error) {
 	}
 
 	pkgSvcFields := strings.Split(fullMethodFields[1], ".")
-	if len(pkgSvcFields) != 2 {
-		err = ErrPkscParse
-		return
+	switch len(pkgSvcFields) {
+		case 2:
+			pkg = pkgSvcFields[0]
+			svc = pkgSvcFields[1]
+		case 3:
+			pkg = fmt.Sprintf("%s.%s", pkgSvcFields[0], pkgSvcFields[1])
+			svc = pkgSvcFields[2]
+		default:
+			err = ErrPkscParse
+			return
 	}
 
-	pkg = pkgSvcFields[0]
-	svc = pkgSvcFields[1]
 	call = fullMethodFields[2]
 
 	if len(pkg) == 0 || len(svc) == 0 || len(call) == 0 {
@@ -246,6 +251,8 @@ func parseGrpcMethod(fullmethod string) (pkg, svc, call string, err error) {
 	isAlNum := func(s string) {
 		for i := 0; i < len(s); i++ {
 			switch {
+			case s[i] == 0x2e: // char: .
+				continue
 			case s[i] < 0x30: // char: 0
 				fallthrough
 			case s[i] > 0x7a: // char: z
