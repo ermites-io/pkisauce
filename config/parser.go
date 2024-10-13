@@ -5,9 +5,9 @@ package config
 
 import (
 	"fmt"
-	"github.com/antlr/antlr4/runtime/Go/antlr"
 
 	"ermites.io/pkisauce/policy"
+	"github.com/antlr4-go/antlr/v4"
 )
 
 type Parser struct {
@@ -22,7 +22,7 @@ func (pr *Parser) Config() Config {
 	return pr.config
 }
 
-//func NewParser(key []byte) *Parser {
+// func NewParser(key []byte) *Parser {
 func NewParser() *Parser {
 	// random key for the hmac'ing of rules.
 	return &Parser{
@@ -106,7 +106,7 @@ func parseNameBlock(nbr IName_blockContext) (names []string, err error) {
 	return
 }
 
-//func parsePassBlock(pbr IPass_blockContext) (rules []*Rule, err error) {
+// func parsePassBlock(pbr IPass_blockContext) (rules []*Rule, err error) {
 func (pr *Parser) parsePassBlock(pbr IPass_blockContext) (p *policy.Policy, debug bool, err error) {
 	//var rules []*Rule
 
